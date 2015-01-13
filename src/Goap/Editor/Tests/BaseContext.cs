@@ -4,11 +4,11 @@ using GOAP.Planning;
 
 namespace Tests
 {
-    internal class BaseContext
-    {
-        protected static Planner<State> CreatePlanner()
-        {
-            var planningActions = new List<PlanningAction<State>>
+	public class BaseContext
+	{
+		protected static Planner<State> CreatePlanner()
+		{
+			var planningActions = new List<PlanningAction<State>>
                 {
                     new PlanningAction<State>(
                         name: "swap 1 with 2",
@@ -27,9 +27,9 @@ namespace Tests
                                 x["2"] -= 1;
                             }),
                 };
-            var stateComparer = new StateComaparer();
+			var stateComparer = new StateComaparer() as IPlanningStateComparer<State>;
 
-            return new Planner<State>(PlanningMethod.DepthFirst, planningActions, stateComparer);
-        }
-    }
+			return new Planner<State>(PlanningMethod.DepthFirst, planningActions.ToArray(), stateComparer);
+		}
+	}
 }
